@@ -1,0 +1,58 @@
+#include<bits/stdc++.h>
+using namespace std;
+int c=0,s=0;
+void quick(int*arr,int lb,int ub)
+{
+    if(lb>=ub)return;
+    int key=arr[lb];
+    int i=lb+1,j=ub;
+    while(i<j)
+    {
+        while(arr[i]<=key){
+        i++;
+        c++;}
+        while(arr[j]>key){
+        j--;
+        c++;}
+        if(i<j)
+        {swap(arr[i],arr[j]);
+        s++;}
+
+    }
+    arr[lb]=arr[j];
+    arr[j]=key;
+    s++;
+    quick(arr,lb,j-1);
+    quick(arr,j+1,ub);
+}
+void quickran(int*arr,int lb,int ub)
+{
+     int random= lb+rand()%(ub-lb);
+    swap(arr[random],arr[lb]);
+    s++;
+     quick(arr,lb,ub);
+}
+int main()
+{
+
+ int arr[1000];
+  cout<<"enter the no of test case\n";
+  int n,t;
+  cin>>t;
+  
+  while(t>0)
+  {
+ cout<<"\nenter the size of array\n";
+  cin>>n;
+  for(int i=0;i<n;i++)
+  cin>>arr[i];
+  quickran(arr,0,n-1);
+  for(int i=0;i<n;i++)
+  cout<<arr[i]<<" ";
+  cout<<endl;
+  cout<<"Comparisons "<<c<<endl;
+  cout<<"Swaps "<<s<<endl;
+  t--;
+  }
+    return 0;
+}
