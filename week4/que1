@@ -1,0 +1,68 @@
+#include<bits/stdc++.h>
+using namespace std;
+int com=0;
+ void merge_sort(int*arr,int mid,int l,int ub)
+ {
+     
+     int b[1000],k=l,i=l,j=mid+1;
+     while(i<=mid&&j<=ub)
+     {
+         if(arr[i]<arr[j])
+         b[k++]=arr[i++];
+         else
+         b[k++]=arr[j++];
+         com++;
+    }
+    while(i<=mid)
+      b[k++]=arr[i++];
+      while(j<=ub)
+        b[k++]=arr[j++];
+        for(int i=l;i<k;i++)
+        arr[i]=b[i];
+
+ }
+void merge(int *arr,int lb,int ub)
+{
+    if(lb<ub)
+    {
+        int mid=lb+(ub-lb)/2;
+          merge(arr,lb,mid);
+          merge(arr,mid+1,ub);
+          merge_sort(arr,mid,lb,ub);
+    }
+}
+int inver(int*arr,int n)
+{ 
+    int inv=0;
+    for(int i=0;i<n-1;i++)
+    for(int j=i+1;j<n;j++)
+      {
+          if(arr[i]>arr[j])
+          inv++;
+      }
+      return inv;
+}
+int main()
+{
+int arr[1000];
+  cout<<"enter the no of test case\n";
+  int n,t;
+  cin>>t;
+  
+  while(t>0)
+  {
+ cout<<"\nenter the size of array\n";
+  cin>>n;
+  for(int i=0;i<n;i++)
+  cin>>arr[i];
+   int invi=inver(arr,n);
+ merge(arr,0,n-1);
+  for(int i=0;i<n;i++)
+  cout<<arr[i]<<" ";
+  cout<<"\ncomparisons "<<com<<endl;
+  cout<<"\ninvi "<<invi<<endl;
+  com=0;
+    t--;
+  }
+    return 0;
+}
